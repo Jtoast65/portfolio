@@ -551,3 +551,15 @@ circle.selected {
   font-weight: 600;
   margin-top: 1rem;
 }
+
+.clickable-project {
+
+  cursor: pointer;
+}
+
+.clickable-project:hover {
+
+  transform: scale(1.02);
+
+}
+

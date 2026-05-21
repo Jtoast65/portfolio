@@ -8,8 +8,9 @@
     {
       "title": "SoCalGuessr City Classifier",
       "year": "2026",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A deep learning project that classifies Southern California Street View images into six cities using a MobileNetV3-Small model, transfer learning, and multi-view test-time augmentation."
+      "image": "../images/socalguesser.png",
+      "description": "A deep learning project that classifies Southern California Street View images into six cities using a MobileNetV3-Small model, transfer learning, and multi-view test-time augmentation.",
+      "url": "https://jtoast65.github.io/SocalGeoGuesser/"
     },
     {
       "title": "Smart Food Tracker (Nutribase)",
@@ -21,13 +22,15 @@
       "title": "Image & Audio Processing App",
       "year": "2025",
       "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "An object-oriented Python application using NumPy and PIL for RGB image editing, WAV audio processing, and a KNN image classifier."
+      "description": "An object-oriented Python application using NumPy and PIL for RGB image editing, WAV audio processing, and a KNN image classifier.",
+      "url": "https://github.com/Jtoast65/Image-And-Audio-Processing-App"
     },
     {
       "title": "Clash Royale Win Rate Analysis",
       "year": "2025",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A data science project analyzing how deck elixir cost influences win rate among the top 1000 Clash Royale players, using data cleaning, visualization, and predictive modeling."
+      "image": "../images/clashprojposter.webp",
+      "description": "A data science project analyzing how deck elixir cost influences win rate among the top 1000 Clash Royale players, using data cleaning, visualization, and predictive modeling.",
+      "url": "https://jtoast65.github.io/Clash-Royale-Win-Rate-Analysis/"
     },
     {
       "title": "Course Grades Analysis Toolkit",
@@ -50,32 +53,35 @@
     {
       "title": "Early Game Advantage in Professional League of Legends",
       "year": "2025",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A data science project on how early-game stats relate to pro League of Legends match outcomes."
+      "image": "../images/leaguesprojposter.jpg",
+      "description": "A data science project on how early-game stats relate to pro League of Legends match outcomes.",
+      "url": "https://jtoast65.github.io/League-of-Legends-/"
     },
     {
       "title": "Song Recommender System",
       "year": "2024",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+      "image": "../images/spotifyprojposter.png",
       "description": "A Python recommendation engine built with Pandas and scikit-learn using collaborative filtering on a large user-song dataset."
     },
     {
       "title": "Word Search Solver in C",
       "year": "2024",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A C program that solves word-search puzzles using recursive 8-direction search and prints the word path."
+      "image": "../images/wordsearch.png",
+      "description": "A C program that solves word-search puzzles using recursive 8-direction search and prints the word path.",
+      "url": "https://github.com/Jtoast65/Word-Search-Solver"
     },
     {
       "title": "Tic-Tac-Toe AI in C++",
       "year": "2023",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A C++ Tic-Tac-Toe game with player-vs-player, player-vs-AI, and a game tree–based minimax strategy."
+      "image": "../images/tictactoe.webp",
+      "description": "A C++ Tic-Tac-Toe game with player-vs-player, player-vs-AI, and a game tree–based minimax strategy.",
+      "url": "https://github.com/Jtoast65/Unbeatable-Tic-Tac-Toe-AI"
     },
 
     {
       "title": "Bikewatching",
       "year": "2026",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+      "image": "../images/bikewatching.png",
       "description": "An interactive Mapbox visualization of Boston-area bike lanes, BlueBike stations, and traffic patterns by time of day.",
       "url": "https://jtoast65.github.io/bikes/"
     }
