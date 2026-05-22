@@ -35,8 +35,9 @@
     {
       "title": "Course Grades Analysis Toolkit",
       "year": "2025",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A Python and pandas project that analyzes course grade data by computing assignment totals, lateness penalties, redemption effects, section rankings, and a letter-grade heat map."
+      "image": "../images/gradeanalysis.jpg",
+      "description": "A Python and pandas project that analyzes course grade data by computing assignment totals, lateness penalties, redemption effects, section rankings, and a letter-grade heat map.",
+      "url": "https://github.com/Jtoast65/Course-Grades-Analysis"
     },
     {
       "title": "Loan and Tax Data Analysis",
