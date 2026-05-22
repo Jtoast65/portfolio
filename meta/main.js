@@ -30,6 +30,15 @@ let commits = d3.groups(data, (d) => d.commit).map(([commit, lines]) => {
 });
 
 let selectedCommits = [];
+let filteredCommits = commits;
+let commitProgress = 100;
+
+let timeScale = d3
+  .scaleTime()
+  .domain(d3.extent(commits, (d) => d.datetime))
+  .range([0, 100]);
+
+let commitMaxTime = timeScale.invert(commitProgress);
 
 let stats = [
   { label: 'Total LOC', value: data.length },
@@ -95,11 +104,6 @@ const yScale = d3
   .domain([0, 24])
   .range([usableArea.bottom, usableArea.top]);
 
-const rScale = d3
-  .scaleSqrt()
-  .domain([0, d3.max(commits, (d) => d.totalLines)])
-  .range([2, 30]);
-
 const xAxis = d3.axisBottom(xScale);
 const yAxis = d3
   .axisLeft(yScale)
@@ -107,11 +111,13 @@ const yAxis = d3
 
 svg
   .append('g')
+  .attr('class', 'x-axis')
   .attr('transform', `translate(0, ${usableArea.bottom})`)
   .call(xAxis);
 
 svg
   .append('g')
+  .attr('class', 'y-axis')
   .attr('transform', `translate(${usableArea.left}, 0)`)
   .call(yAxis);
 
@@ -126,12 +132,34 @@ svg
       .tickSize(-usableArea.width)
   );
 
+const interactionLayer = svg.append('g').attr('class', 'interaction-layer');
+
+interactionLayer
+  .append('rect')
+  .attr('x', usableArea.left)
+  .attr('y', usableArea.top)
+  .attr('width', usableArea.width)
+  .attr('height', usableArea.height)
+  .attr('fill', 'transparent');
+
+const dots = svg.append('g').attr('class', 'dots');
+
+const brush = d3
+  .brush()
+  .extent([
+    [usableArea.left, usableArea.top],
+    [usableArea.right, usableArea.bottom],
+  ])
+  .on('start brush end', brushed);
+
+interactionLayer.call(brush);
+
 const tooltip = document.getElementById('commit-tooltip');
 
 function renderTooltipContent(commit) {
   const link = document.getElementById('commit-link');
   const date = document.getElementById('commit-date');
-  const time = document.getElementById('commit-time');
+  const time = document.getElementById('commit-time-tooltip');
   const author = document.getElementById('commit-author');
   const lines = document.getElementById('commit-lines');
 
@@ -205,60 +233,99 @@ function updateLanguageBreakdown() {
   });
 }
 
-// Brush layer behind circles
-const interactionLayer = svg.append('g').attr('class', 'interaction-layer');
+function updateScatterPlot(commitsToShow) {
+  let shownCommits = commitsToShow.length > 0 ? commitsToShow : [];
 
-interactionLayer
-  .append('rect')
-  .attr('x', usableArea.left)
-  .attr('y', usableArea.top)
-  .attr('width', usableArea.width)
-  .attr('height', usableArea.height)
-  .attr('fill', 'transparent');
+  let domain = d3.extent(shownCommits, (d) => d.datetime);
+  if (!domain[0] || !domain[1]) {
+    domain = d3.extent(commits, (d) => d.datetime);
+  }
 
-const brush = d3
-  .brush()
-  .extent([
-    [usableArea.left, usableArea.top],
-    [usableArea.right, usableArea.bottom],
-  ])
-  .on('start brush end', brushed);
+  xScale.domain(domain).nice();
 
-interactionLayer.call(brush);
+  const rScale = d3
+    .scaleSqrt()
+    .domain([0, d3.max(commits, (d) => d.totalLines)])
+    .range([2, 30]);
 
-// Circles above brush layer so hover still works
-const dots = svg.append('g');
+  svg.select('.x-axis').call(d3.axisBottom(xScale));
 
-const circles = dots
-  .selectAll('circle')
-  .data(commits)
-  .join('circle')
-  .attr('cx', (d) => xScale(d.datetime))
-  .attr('cy', (d) => yScale(d.hourFrac))
-  .attr('r', (d) => rScale(d.totalLines))
-  .attr('fill', 'steelblue')
-  .attr('fill-opacity', 0.7)
-  .sort((a, b) => b.totalLines - a.totalLines)
-  .on('mouseenter', (event, commit) => {
-    renderTooltipContent(commit);
-    updateTooltipVisibility(true);
-    updateTooltipPosition(event);
-  })
-  .on('mousemove', (event) => {
-    updateTooltipPosition(event);
-  })
-  .on('mouseleave', () => {
-    updateTooltipVisibility(false);
-  });
+  let sortedCommits = d3.sort(shownCommits, (d) => -d.totalLines);
+
+  dots
+    .selectAll('circle')
+    .data(sortedCommits, (d) => d.id)
+    .join(
+      (enter) =>
+        enter
+          .append('circle')
+          .attr('cx', (d) => xScale(d.datetime))
+          .attr('cy', (d) => yScale(d.hourFrac))
+          .attr('r', 0)
+          .attr('fill', 'steelblue')
+          .attr('fill-opacity', 0.7)
+          .call((enter) =>
+            enter.transition().attr('r', (d) => rScale(d.totalLines))
+          ),
+      (update) =>
+        update.call((update) =>
+          update
+            .transition()
+            .attr('cx', (d) => xScale(d.datetime))
+            .attr('cy', (d) => yScale(d.hourFrac))
+            .attr('r', (d) => rScale(d.totalLines))
+        ),
+      (exit) => exit.call((exit) => exit.transition().attr('r', 0).remove())
+    )
+    .on('mouseenter', (event, commit) => {
+      renderTooltipContent(commit);
+      updateTooltipVisibility(true);
+      updateTooltipPosition(event);
+    })
+    .on('mousemove', (event) => {
+      updateTooltipPosition(event);
+    })
+    .on('mouseleave', () => {
+      updateTooltipVisibility(false);
+    });
+
+  brushed({ selection: null });
+}
 
 function brushed(event) {
   const selection = event.selection;
 
   selectedCommits = selection
-    ? commits.filter((commit) => isCommitSelected(selection, commit))
+    ? filteredCommits.filter((commit) => isCommitSelected(selection, commit))
     : [];
 
-  circles.classed('selected', (d) => selectedCommits.includes(d));
+  dots
+    .selectAll('circle')
+    .classed('selected', (d) => selectedCommits.includes(d));
 
   updateSelection();
 }
+
+function onTimeSliderChange() {
+  const slider = document.getElementById('commit-progress');
+  const timeLabel = document.getElementById('commit-time');
+
+  commitProgress = Number(slider.value);
+  commitMaxTime = timeScale.invert(commitProgress);
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  timeLabel.textContent = commitMaxTime.toLocaleString('en-US', {
+    dateStyle: 'long',
+    timeStyle: 'short',
+  });
+
+  interactionLayer.call(brush.move, null);
+  selectedCommits = [];
+  updateSelection();
+  updateScatterPlot(filteredCommits);
+}
+
+const timeSlider = document.getElementById('commit-progress');
+timeSlider.addEventListener('input', onTimeSliderChange);
+
+onTimeSliderChange();

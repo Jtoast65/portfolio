@@ -11,7 +11,13 @@
 <body>
   <h1>Meta Analysis</h1>
   <p>This page analyzes my codebase and visualizes commit activity.</p>
-
+  <div class="commit-filter">
+    <label>
+      Show commits until:
+      <input id="commit-progress" type="range" min="0" max="100" value="100" />
+      <time id="commit-time"></time>
+    </label>
+  </div>
   <section>
     <h2>Summary Stats</h2>
     <dl class="stats"></dl>
