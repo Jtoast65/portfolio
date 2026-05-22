@@ -35,6 +35,7 @@ let commits = d3
 
 let selectedCommits = [];
 let filteredCommits = commits;
+let fileFilteredCommits = commits;
 let commitMaxTime = d3.max(commits, (d) => d.datetime);
 
 let stats = [
@@ -73,7 +74,7 @@ function mostActivePeriod(commits) {
 }
 
 const width = 1000;
-const height = 400;
+const height = 300;
 const margin = { top: 10, right: 10, bottom: 30, left: 40 };
 
 const usableArea = {
@@ -229,9 +230,7 @@ function updateFileDisplay(filteredCommits) {
 
   let files = d3
     .groups(lines, (d) => d.file)
-    .map(([name, lines]) => {
-      return { name, lines };
-    })
+    .map(([name, lines]) => ({ name, lines }))
     .sort((a, b) => b.lines.length - a.lines.length);
 
   let colors = d3.scaleOrdinal(d3.schemeTableau10);
@@ -337,54 +336,118 @@ function brushed(event) {
   updateSelection();
 }
 
-
+function storyHTML(d, i) {
+  return `
+    On ${d.datetime.toLocaleString('en', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    })},
+    I made <a href="${d.url}" target="_blank">${
+      i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
+    }</a>.
+    I edited ${d.totalLines} lines across ${
+      d3.rollups(
+        d.lines,
+        (D) => D.length,
+        (line) => line.file
+      ).length
+    } files.
+    Then I looked over all I had made, and I saw that it was very good.
+  `;
+}
 
 d3.select('#scatter-story')
   .selectAll('.step')
   .data(commits)
   .join('div')
   .attr('class', 'step')
-  .html(
-    (d, i) => `
-      On ${d.datetime.toLocaleString('en', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-      })},
-      I made <a href="${d.url}" target="_blank">${
-        i > 0 ? 'another glorious commit' : 'my first commit, and it was glorious'
-      }</a>.
-      I edited ${d.totalLines} lines across ${
-        d3.rollups(
-          d.lines,
-          (D) => D.length,
-          (line) => line.file
-        ).length
-      } files.
-      Then I looked over all I had made, and I saw that it was very good.
-    `
-  );
+  .html(storyHTML);
+
+d3.select('#files-story')
+  .selectAll('.step')
+  .data(commits)
+  .join('div')
+  .attr('class', 'step')
+  .html(storyHTML);
 
 function onStepEnter(response) {
   const commit = response.element.__data__;
   commitMaxTime = commit.datetime;
   filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
   interactionLayer.call(brush.move, null);
   selectedCommits = [];
   updateSelection();
   updateScatterPlot(filteredCommits);
-  updateFileDisplay(filteredCommits);
 }
 
-const scroller = scrollama();
+function onStepProgress(response) {
+  const lastIndex = commits.length - 1;
+  const rawPosition = response.index + response.progress;
+  const clampedPosition = Math.max(0, Math.min(lastIndex, rawPosition));
 
-scroller
+  const index0 = Math.floor(clampedPosition);
+  const index1 = Math.min(lastIndex, Math.ceil(clampedPosition));
+  const t = clampedPosition - index0;
+
+  const interpolatedTime = d3
+    .interpolateDate(commits[index0].datetime, commits[index1].datetime)(t);
+
+  commitMaxTime = interpolatedTime;
+  filteredCommits = commits.filter((d) => d.datetime <= commitMaxTime);
+
+  interactionLayer.call(brush.move, null);
+  selectedCommits = [];
+  updateSelection();
+  updateScatterPlot(filteredCommits);
+}
+
+function onFilesStepEnter(response) {
+  const commit = response.element.__data__;
+  fileFilteredCommits = commits.filter((d) => d.datetime <= commit.datetime);
+  updateFileDisplay(fileFilteredCommits);
+}
+
+function onFilesStepProgress(response) {
+  const lastIndex = commits.length - 1;
+  const rawPosition = response.index + response.progress;
+  const clampedPosition = Math.max(0, Math.min(lastIndex, rawPosition));
+
+  const index0 = Math.floor(clampedPosition);
+  const index1 = Math.min(lastIndex, Math.ceil(clampedPosition));
+  const t = clampedPosition - index0;
+
+  const interpolatedTime = d3
+    .interpolateDate(commits[index0].datetime, commits[index1].datetime)(t);
+
+  fileFilteredCommits = commits.filter((d) => d.datetime <= interpolatedTime);
+  updateFileDisplay(fileFilteredCommits);
+}
+
+const scatterScroller = scrollama();
+scatterScroller
   .setup({
     container: '#scrolly-1',
     step: '#scrolly-1 .step',
+    offset: 0.5,
+    progress: true,
   })
-  .onStepEnter(onStepEnter);
+  .onStepEnter(onStepEnter)
+  .onStepProgress(onStepProgress);
 
-  filteredCommits = commits;
-  updateScatterPlot(filteredCommits);
-  updateFileDisplay(filteredCommits);
-  updateSelection();
+const filesScroller = scrollama();
+filesScroller
+  .setup({
+    container: '#scrolly-2',
+    step: '#scrolly-2 .step',
+    offset: 0.5,
+    progress: true,
+  })
+  .onStepEnter(onFilesStepEnter)
+  .onStepProgress(onFilesStepProgress);
+
+filteredCommits = commits;
+fileFilteredCommits = commits;
+updateScatterPlot(filteredCommits);
+updateFileDisplay(fileFilteredCommits);
+updateSelection();
