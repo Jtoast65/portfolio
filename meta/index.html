@@ -11,28 +11,31 @@
 <body>
   <h1>Meta Analysis</h1>
   <p>This page analyzes my codebase and visualizes commit activity.</p>
-  <div class="commit-filter">
-    <label>
-      Show commits until:
-      <input id="commit-progress" type="range" min="0" max="100" value="100" />
-      <time id="commit-time"></time>
-    </label>
+
+
+  <div id="scrolly-1">
+    <div id="scatter-story"></div>
+
+    <div id="scatter-plot">
+      <section>
+        <h2>Summary Stats</h2>
+        <dl class="stats"></dl>
+      </section>
+
+      <section>
+        <h2>Commit Activity</h2>
+        <div id="chart"></div>
+        <p id="selection-count">No commits selected</p>
+      </section>
+
+      <section>
+        <h2>Language Breakdown</h2>
+        <dl id="language-breakdown" class="stats"></dl>
+      </section>
+    </div>
   </div>
-  <section>
-    <h2>Summary Stats</h2>
-    <dl class="stats"></dl>
-  </section>
 
-  <section>
-    <h2>Commit Activity</h2>
-    <div id="chart"></div>
-    <p id="selection-count">No commits selected</p>
-  </section>
-
-  <section>
-    <h2>Language Breakdown</h2>
-    <dl id="language-breakdown" class="stats"></dl>
-  </section>
+  <dl id="files"></dl>
 
   <dl id="commit-tooltip" class="info tooltip" hidden>
     <dt>Commit</dt>
@@ -44,7 +47,7 @@
     <dd id="commit-date"></dd>
 
     <dt>Time</dt>
-    <dd id="commit-time"></dd>
+    <dd id="commit-time-tooltip"></dd>
 
     <dt>Author</dt>
     <dd id="commit-author"></dd>
