@@ -1,5 +1,12 @@
 [
     {
+      "title": "NFL Win Probability Pipeline",
+      "year": "2026",
+      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+      "description": "End-to-end ML engineering project: ingested 407K+ NFL plays into PostgreSQL, trained an XGBoost win probability model beating the nflfastR industry baseline (Brier 0.140 vs 0.157), and deployed a FastAPI + Streamlit dashboard with live game simulation and historical replay.",
+      "url": "https://nfl-analytics-crwjgsvzmwtrhl75mwpmtp.streamlit.app"
+    },
+    {
       "title": "Personal Portfolio Website",
       "year": "2026",
       "image": "https://vis-society.github.io/labs/2/images/empty.svg",
