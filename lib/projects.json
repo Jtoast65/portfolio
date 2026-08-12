@@ -56,8 +56,9 @@
     {
       "title": "Language Modeling with N-Grams",
       "year": "2025",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A Python and pandas project that downloads and tokenizes Project Gutenberg books, then builds uniform, unigram, and N-gram language models for text probability and sampling."
+      "image": "../images/language-modeling.png",
+      "description": "A Python NLP project that downloads and tokenizes Project Gutenberg books, then builds uniform, unigram, and N-gram language models for sequence probability and text sampling.",
+      "url": "https://github.com/Jtoast65/Language-Modeling-with-N-Grams"
     },
     {
       "title": "Early Game Advantage in Professional League of Legends",
