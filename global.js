@@ -113,6 +113,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
     const article = document.createElement('article');
     const hasUrl = Boolean(project.url);
+    const imageSrc = resolveProjectImage(project.image);
 
     article.innerHTML = `
 
@@ -120,7 +121,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
       <p class="project-year">${project.year ?? ""}</p>
 
-      <img src="${project.image}" alt="${project.title}">
+      <img src="${imageSrc}" alt="${project.title}">
 
       <p>${project.description}</p>
 
@@ -157,6 +158,19 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
   }
 
+}
+
+function resolveProjectImage(image) {
+  if (!image || image.startsWith('http') || image.startsWith('data:')) {
+    return image;
+  }
+
+  const imageName = image.split('/').pop();
+  if (imageName && image.includes('images/')) {
+    return `${BASE_PATH}images/${imageName}`;
+  }
+
+  return image;
 }
 export async function fetchGitHubData(username) {
   return fetchJSON(`https://api.github.com/users/${username}`);

@@ -10,7 +10,7 @@ renderProjects(latestProjects, projectsContainer, 'h2');
 const githubData = await fetchGitHubData('Jtoast65');
 const profileStats = document.querySelector('#profile-stats');
 
-if (profileStats) {
+if (profileStats && githubData) {
   profileStats.innerHTML = `
     <dl class="github-stats">
       <div>
@@ -30,5 +30,10 @@ if (profileStats) {
         <dd>${githubData.following}</dd>
       </div>
     </dl>
+    <p class="github-stats-source">Live from the GitHub API</p>
+  `;
+} else if (profileStats) {
+  profileStats.innerHTML = `
+    <p class="empty-state">GitHub stats are temporarily unavailable.</p>
   `;
 }
