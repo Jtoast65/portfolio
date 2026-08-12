@@ -49,8 +49,9 @@
     {
       "title": "Loan and Tax Data Analysis",
       "year": "2025",
-      "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-      "description": "A Python, pandas, and Plotly project that analyzes loan data, studies interest rates and missingness patterns, cleans state tax brackets, and estimates borrowers’ disposable income."
+      "image": "../images/loan-tax-analysis.png",
+      "description": "A Python, pandas, and Plotly project that analyzes LendingClub loan data, studies interest rates and missingness patterns, cleans state tax brackets, and estimates borrowers’ disposable income.",
+      "url": "https://github.com/Jtoast65/Loan-and-Tax-Data-Analysis"
     },
     {
       "title": "Language Modeling with N-Grams",

@@ -112,6 +112,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   for (let project of projects) {
 
     const article = document.createElement('article');
+    const hasUrl = Boolean(project.url);
 
     article.innerHTML = `
 
@@ -123,16 +124,31 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
 
       <p>${project.description}</p>
 
+      ${hasUrl ? `<a class="project-link" href="${project.url}" target="_blank" rel="noopener noreferrer">View project</a>` : ''}
+
     `;
 
-    if (project.url) {
+    if (hasUrl) {
 
       article.classList.add('clickable-project');
+      article.tabIndex = 0;
 
       article.addEventListener('click', function () {
 
         window.open(project.url, '_blank', 'noopener,noreferrer');
 
+      });
+
+      article.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          window.open(project.url, '_blank', 'noopener,noreferrer');
+        }
+      });
+
+      const projectLink = article.querySelector('.project-link');
+      projectLink.addEventListener('click', function (event) {
+        event.stopPropagation();
       });
 
     }
