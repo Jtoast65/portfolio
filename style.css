@@ -200,19 +200,6 @@ h6 {
   color: canvastext;
 }
 
-.resume-pdf-page h1 {
-  max-width: none;
-}
-
-.resume-pdf {
-  width: 100%;
-  min-height: min(88vh, 960px);
-  border: 1px solid color-mix(in oklch, canvastext 15%, canvas 85%);
-  border-radius: 0.75rem;
-  background: color-mix(in oklch, canvas 92%, canvastext 8%);
-  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.08);
-}
-
 @media (min-width: 900px) {
   .resume-page section:first-of-type article header,
   .resume-page section:nth-of-type(2) article header,

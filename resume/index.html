@@ -7,24 +7,150 @@
     <link rel="stylesheet" href="../style.css" />
     <script type="module" src="../global.js"></script>
 </head>
-<body class="resume-page resume-pdf-page">
-  <h1>Resume</h1>
+<body class="resume-page">
+
+  <h1>Joseph Sandoval</h1>
   <p>
-    <a href="resume_technical.pdf" target="_blank" rel="noopener noreferrer">Open PDF</a>
+    <a href="mailto:jrs004@ucsd.edu">jrs004@ucsd.edu</a>
     <span>|</span>
-    <a href="resume_technical.pdf" download>Download PDF</a>
+    <a href="https://www.linkedin.com/in/joseph-r-sandoval" target="_blank">LinkedIn</a>
+    <span>|</span>
+    <a href="https://github.com/Jtoast65" target="_blank">GitHub</a>
+    <span>|</span>
+    <a href="tel:3104830596">(310) 483-0596</a>
+    <span>|</span>
+    San Diego, CA
+    <span>|</span>
+    U.S. Citizen
   </p>
 
-  <object
-    class="resume-pdf"
-    data="resume_technical.pdf"
-    type="application/pdf"
-    aria-label="Joseph Sandoval technical resume PDF"
-  >
-    <p>
-      Your browser cannot display the PDF inline.
-      <a href="resume_technical.pdf">Open the resume PDF</a>.
-    </p>
-  </object>
+  <section>
+    <h2>Education</h2>
+
+    <article>
+      <header>
+        <h3>University of California, San Diego</h3>
+        <p>La Jolla, CA</p>
+      </header>
+      <p>B.S. Data Science, Minor in Business - Provost Honors</p>
+      <p><time datetime="2027-06">Expected June 2027</time></p>
+      <p><strong>Relevant Coursework:</strong> Data Structures, Machine Learning, Data Visualization, Probability &amp; Statistics, Linear Algebra</p>
+    </article>
+
+    <article>
+      <header>
+        <h3>University of California, Merced</h3>
+        <p>Merced, CA</p>
+      </header>
+      <p>Coursework toward B.S. Computer Science &amp; Engineering, transferred to UCSD</p>
+      <p>
+        <time datetime="2022-08">August 2022</time> -
+        <time datetime="2024-05">May 2024</time>
+      </p>
+    </article>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <ul>
+      <li><strong>Programming Languages:</strong> Python, SQL, C++, C, JavaScript, R</li>
+      <li><strong>ML / Data Science:</strong> XGBoost, PyTorch, TensorFlow, scikit-learn, Pandas, NumPy, Matplotlib, OpenCV, NLTK, PIL</li>
+      <li><strong>GenAI / LLM:</strong> retrieval-augmented generation (RAG), OpenAI embeddings (text-embedding-3-small), gpt-4o-mini, pgvector (HNSW), semantic search, prompt grounding</li>
+      <li><strong>Backend / Frontend:</strong> FastAPI, Pydantic, React, React Router, Streamlit</li>
+      <li><strong>Data / Infrastructure:</strong> PostgreSQL, AWS (RDS, S3), Apache Airflow, dbt, PySpark, Supabase, MongoDB, MySQL, Docker, Render, Git, Jupyter, Power BI</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+
+    <article>
+      <header>
+        <h3>NFL Win Probability, RAG Q&amp;A &amp; Orchestration Pipeline</h3>
+        <p>Python, XGBoost, FastAPI, Airflow, dbt, AWS</p>
+      </header>
+      <p>
+        <a href="https://github.com/Jtoast65/NFL-Analytics" target="_blank">Repo</a>
+        &nbsp;|&nbsp;
+        <a href="https://nfl-analytics-crwjgsvzmwtrhl75mwpmtp.streamlit.app" target="_blank">Dashboard</a>
+        &nbsp;|&nbsp;
+        <a href="https://nfl-analytics-api-aku6.onrender.com/docs" target="_blank">API docs</a>
+      </p>
+      <ul>
+        <li>Built an end-to-end analytics pipeline ingesting 407K+ play-by-play records across 10 NFL seasons (2016-2025) into a normalized five-table PostgreSQL schema with idempotent ingestion.</li>
+        <li>Trained and calibrated a 14-feature XGBoost win probability model with isotonic regression under a strict temporal split (train 2016-2022, validate 2023, test 2024), reaching a 0.140 Brier score and 0.884 ROC-AUC and beating the public nflfastR baseline by 8%.</li>
+        <li>Added a retrieval-augmented Q&amp;A layer over approximately 7,600 embedded documents using OpenAI text-embedding-3-small and gpt-4o-mini grounded strictly in retrieved context, served from a pgvector HNSW store through a FastAPI endpoint and a Streamlit page.</li>
+        <li>Orchestrated the batch pipeline as a five-task Apache Airflow DAG running against AWS RDS and S3, with 15 dbt data-quality tests across three marts and a PySpark port of feature engineering verified row-for-row against pandas.</li>
+      </ul>
+    </article>
+
+    <article>
+      <header>
+        <h3>SoCalGuesser Image Classification</h3>
+        <p>PyTorch</p>
+      </header>
+      <p>
+        <a href="https://github.com/Jtoast65/SocalGeoGuesser" target="_blank">Repo</a>
+      </p>
+      <ul>
+        <li>Trained a MobileNetV3-Small transfer-learning classifier over six Southern California cities to 73.33% accuracy against a 16.7% random baseline, with stratified splits, AdamW, and multi-view test-time augmentation.</li>
+      </ul>
+    </article>
+
+    <article>
+      <header>
+        <h3>Unbeatable Tic-Tac-Toe AI</h3>
+        <p>C++</p>
+      </header>
+      <p>
+        <a href="https://github.com/Jtoast65/Unbeatable-Tic-Tac-Toe-AI" target="_blank">Repo</a>
+      </p>
+      <ul>
+        <li>Built a C++20 game-tree AI that expands future board states breadth-first through a hand-written doubly linked list and queue, then selects moves by minimax, with player-selectable board size and a 100K-1M node search budget trading search speed against decision quality.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>Work Experience</h2>
+
+    <article>
+      <header>
+        <h3>Whole Foods Market</h3>
+        <p>San Diego, CA</p>
+      </header>
+      <p>Produce Operations Associate, Part-time</p>
+      <p><time datetime="2026-06">June 2026</time> - Present</p>
+      <ul>
+        <li>Receive and break down produce pallet deliveries, organizing backroom storage to fit full shipments into limited cooler and floor space.</li>
+        <li>Rotate stock on a FIFO basis to reduce spoilage and track departmental produce waste.</li>
+      </ul>
+    </article>
+
+    <article>
+      <header>
+        <h3>Associated Students of UC Merced</h3>
+        <p>Merced, CA</p>
+      </header>
+      <p>Senator, School of Engineering</p>
+      <p>
+        <time datetime="2023-08">August 2023</time> -
+        <time datetime="2024-07">July 2024</time>
+      </p>
+      <ul>
+        <li>Managed and tracked a $200K operating budget for student organizations and developed a $240K fiscal plan to optimize funding allocation for the following year.</li>
+        <li>Held office hours, allocated funds, and resolved conflicts between student organizations.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section>
+    <h2>Certifications &amp; Leadership</h2>
+    <ul>
+      <li><strong>Certifications:</strong> Claude Code 101 - Anthropic (June 2026); Krach Leadership Certificate - Sigma Chi (July 2024)</li>
+      <li><strong>Leadership:</strong> Vice Chair - Budget &amp; Finance and Sergeant at Arms (ASUCM); Intern Educator - Business Society; Data Science Student Society; ACM</li>
+    </ul>
+  </section>
+
 </body>
 </html>
