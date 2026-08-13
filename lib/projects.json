@@ -61,6 +61,13 @@
       "url": "https://github.com/Jtoast65/Language-Modeling-with-N-Grams"
     },
     {
+      "title": "Friends TV Data Analysis",
+      "year": "2024",
+      "image": "../images/friends-central-perk.jpg",
+      "description": "A Python and babypandas analysis of Friends episodes, scripts, credits, emotions, and ratings, including bootstrap confidence intervals, dialogue balance analysis, text processing, and simple title generation.",
+      "url": "https://github.com/Jtoast65/Friends-TV-Data-Analysis"
+    },
+    {
       "title": "Early Game Advantage in Professional League of Legends",
       "year": "2025",
       "image": "../images/leaguesprojposter.jpg",
@@ -68,10 +75,11 @@
       "url": "https://jtoast65.github.io/League-of-Legends-/"
     },
     {
-      "title": "Song Recommender System",
+      "title": "Taylor Swift Song Recommender",
       "year": "2024",
-      "image": "../images/spotifyprojposter.png",
-      "description": "A Python recommendation engine built with Pandas and scikit-learn using collaborative filtering on a large user-song dataset."
+      "image": "../images/taylor-swift-project.jpg",
+      "description": "A DSC 10 data science notebook exploring Taylor Swift songs through lyrics, audio features, visualizations, phrase search, keyword extraction, and a content-based recommendation system.",
+      "url": "https://github.com/Jtoast65/Taylor-Swift-Song-Recommender"
     },
     {
       "title": "Word Search Solver in C",
