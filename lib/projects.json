@@ -79,7 +79,7 @@
       "year": "2024",
       "image": "../images/taylor-swift-project.jpg",
       "description": "A DSC 10 data science notebook exploring Taylor Swift songs through lyrics, audio features, visualizations, phrase search, keyword extraction, and a content-based recommendation system.",
-      "url": "https://github.com/Jtoast65/Taylor-Swift-Song-Recommender"
+      "url": "https://github.com/Jtoast65/Song-Recommender"
     },
     {
       "title": "Word Search Solver in C",
