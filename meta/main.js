@@ -16,7 +16,7 @@ let commits = d3
 
     return {
       id: commit,
-      url: `https://github.com/Jtoast65/dsc106portfolio/commit/${commit}`,
+      url: `https://github.com/Jtoast65/portfolio/commit/${commit}`,
       author: first.author,
       date: first.datetime,
       time: first.datetime.toLocaleTimeString([], {

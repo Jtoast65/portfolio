@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "update-meta": "elocuent -d . -o meta/loc.csv"
+  },
   "devDependencies": {
     "elocuent": "^0.0.4"
   }
