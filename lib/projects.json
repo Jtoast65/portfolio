@@ -7,6 +7,13 @@
       "url": "https://nfl-analytics-crwjgsvzmwtrhl75mwpmtp.streamlit.app"
     },
     {
+      "title": "Mortgage Default Risk Dashboard",
+      "year": "2026",
+      "image": "../images/mortgage-default-risk-dashboard.png",
+      "description": "A calibrated credit-risk modeling project using Freddie Mac mortgage data, vintage-based train/test splits, logistic regression, XGBoost, isotonic calibration, FastAPI, and an interactive dashboard for approval-cutoff and expected-loss tradeoffs.",
+      "url": "https://mortgage-default-risk.vercel.app"
+    },
+    {
       "title": "Personal Portfolio Website",
       "year": "2026",
       "image": "https://vis-society.github.io/labs/2/images/empty.svg",
